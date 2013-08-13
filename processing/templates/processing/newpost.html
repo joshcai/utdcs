@@ -1,0 +1,35 @@
+{% extends "processing/base.html" %}
+
+{% load tagcheck %}
+
+{% block content %}
+<form action="{{ url }}" method="post">
+	<fieldset>
+		{% csrf_token %}
+		<legend>Submit a program!</legend>
+		<!--<label>Subject</label>-->
+		<input type="text" class="form-control" name="title" value="{{ post.title }}" placeholder="Subject" />
+		<br />
+		<input type="text" class="form-control" name="author" value="{{ post.author }}" placeholder="Author (optional)"/>
+		<br />
+		<!--<label>Content</label>-->
+		<textarea rows="15" name="content" placeholder="Content" class="form-control">{{ post.content }}</textarea>
+		<br />
+		{% for tag in tags %}
+			<div class="checkbox">
+				<label>
+					<input type="checkbox" name="{{tag.descript}}" {% ifequal title "Update" %} {% if post|tag:tag %} checked {% endif %} {% endifequal %}>
+					{{tag.descript}}
+				</label>
+			</div>
+		{% endfor %}
+		<div class="text-center">
+			<button type="submit" class="btn">Submit</button>
+		</div>
+	</fieldset>
+</form>
+{{ error_message|safe }}
+{% endblock %}
+{% block navigation %}
+<a href="{% url 'processing:index' %}">Home </a>
+{% endblock %}

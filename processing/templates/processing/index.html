@@ -1,0 +1,45 @@
+{% extends "processing/base.html" %}
+
+{% load tagcheck %}
+
+{% block content %}
+<div class="row">
+	<div class="col-lg-8"><h2 class="pull-left"><strong>UTD CS Javascript Camp</strong></h2></div>
+	<div class="col-lg-4">
+	<div class="pull-right space-top"><a href="{% url 'processing:submit' %}"><button type="button" class="btn btn-primary">Submit New</button></a></div>
+	</div>
+</div>
+<br />
+<!-- add some white space here?  -->
+
+{% if post_entries %}
+    {% for post in post_entries %}
+    	<div class="well">
+    		<!-- fix so that subject has priority? -->
+	    	<span class="pull-right"><em>{{ post.date_str }}</em></span>
+    		<span class="post-title"><a href="{% url 'processing:post' post.id %}">{{ post.title }}</a> by {{ post.author}}</span>
+<!-- 	        {% if request.session.logged_in %}
+	        <a href="{% url 'blog:update' post.id %}">Update</a>
+	        <a href="{% url 'blog:delete' post.id %}">Delete</a>
+	        {% endif %} -->
+	    </div>
+    {% endfor %}
+{% else %}
+    <p>No posts are available.</p>
+{% endif %}
+
+{% endblock %}
+
+{% block navigation %}
+	{% if prev %}
+	<a href="{% url 'processing:index_num' page_num|add:"-1" %}">Prev</a> 
+	{% else %}
+	<span class="text-muted">Prev</span>
+	{% endif %}
+	&nbsp;&nbsp;&nbsp;&nbsp;
+	{% if next %}
+	<a href="{% url 'processing:index_num' page_num|add:"1" %}">Next</a> 
+	{% else %}
+	<span class="text-muted">Next</span>
+	{% endif %}
+{% endblock %}

@@ -1,0 +1,15 @@
+{% extends "blog/base.html" %}
+
+{% block content %}
+<form action="{% url 'blog:login' %}" method="post">
+	<fieldset>
+		{% csrf_token %}
+		<legend>Login</legend>
+		<!--<label>Subject</label>-->
+		<input type="password" name="password" placeholder="Password" class="span6" />
+		<br />
+		<button type="submit" class="btn">Login</button>
+	</fieldset>
+</form>
+{{ error_message|safe }}
+{% endblock %}

@@ -1,0 +1,32 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>{% block title %}Javascript Programs{% endblock %}</title>
+		<meta charset=”utf-8”> 
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.css' %}" media="screen">
+		<link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}" media="screen">
+	</head>
+	<body>
+		<div class="container" id="container-wrapper">
+			<div class="row">
+				<div class="col-lg-2"></div>
+				<div id="content-wrapper" class="col-lg-8">
+					{% block content%}
+					{% endblock %}
+					<div class="text-center text-links">
+						<br />
+						{% block navigation %}
+						{% endblock %}
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+
+		<script src="http://code.jquery.com/jquery.js"></script>
+		<script src="{% static 'js/bootstrap.min.js' %}"></script>
+	</body>
+</html>

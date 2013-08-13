@@ -1,0 +1,16 @@
+schemamigration blog --auto
+migrate blog
+
+runserver
+
+syncdb
+
+dbshell
+
+shell
+
+sql blog
+
+startapp
+
+django-admin.py startproject

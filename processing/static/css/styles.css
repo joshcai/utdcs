@@ -1,0 +1,126 @@
+/*forces scroll bar to be there*/
+html{
+	overflow-y: scroll;
+}
+
+
+/*body{
+	font-family:Georgia, serif;
+	background-color: #254117;
+}
+*/
+.cleared{
+	clear:both;
+}
+
+.centered{
+	float:none;
+	margin:0 auto;
+}
+#container-wrapper:
+{
+	position: relative;
+}
+/*#header{
+	background-color: #25383C;
+	height: 100%;
+	position: fixed;
+	width: 300px;
+	margin-left: 800px;
+}*/
+.sidebar-well {
+  min-height: 20px;
+  padding: 9px;
+  /*margin-bottom: 20px;*/
+  background-color: #f5f5f5;
+  border: 1px solid #e3e3e3;
+  /*border-radius: 4px;*/
+  border-bottom-right-radius:4px;
+  border-bottom-left-radius:4px;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
+          box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
+}
+
+.min400{
+	min-width: 400px;
+}
+
+.space-top{
+	margin-top: 20px;
+}
+.space-top2{
+	margin-top: 10px;
+}
+
+textarea.fit-box{
+	border:1px solid #999999;
+    width:400px;
+    height:400px;
+    padding:3px;
+     -webkit-box-sizing: border-box; /* safari/chrome, other webkit */
+     -moz-box-sizing: border-box;    /* firefox, other gecko */
+     box-sizing: border-box;         /* opera/ie 8+ */
+}
+
+#header {
+    position:fixed;
+    /*width:21.97%;*/
+}
+
+@media (max-width: 767px) {
+    #header {
+        position:static;
+        width:auto;
+    }
+}
+
+@media (max-width: 979px) {
+    #header {
+    	position: static;
+    	width:auto;
+    }
+}
+
+#header-bar {
+	position: absolute;
+	top: 50px;
+	width: 100%;
+	height: 3em;
+	background: red;
+}
+
+#header-img{
+	position: absolute;
+	top: 0px;
+	left: 20%;
+	background: blue;
+}
+
+
+
+#content-wrapper{
+	position: relative;
+	margin: 0 auto;
+	/*background-color: #3CA0D0;*/
+}
+
+
+.post-title{
+	font-size: 28px;
+}
+.post-title2{
+	font-size: 22px;
+}
+
+.checkbox-title{
+	width:90%;
+}
+
+.checkbox-wrapper{
+	width:200px;
+	float:right
+}
+
+.text-links{
+	font-size: 18px;
+}

@@ -1,0 +1,49 @@
+{% extends "processing/base.html" %}
+{% load staticfiles %}
+
+{% block content %}
+	<br />
+	<div class="text-center">
+		<span class="post-title"><strong>{{ post.title }} </strong></span>
+		<span class="post-title2">by {{ post.author }} on {{ post.date_str }} </span>
+	</div>
+	<br />
+<script src="{% static 'js/processing.js' %}"></script>
+<script>
+{{ post.content_rendered|safe }}
+</script>
+
+<div class="row">
+	<div class="col-lg-6 min400">
+		<canvas id="mycanvas"></canvas>
+	</div>
+	<div class="col-lg-6">
+		<form action="#" method="post">
+			<fieldset>
+			<textarea name="content" placeholder="Content" class="fit-box">{{ post.content }}</textarea>
+			</fieldset>
+		</form>
+	</div>
+</div>
+    <script type="application/javascript">
+            var canvas = document.getElementById("mycanvas"); //get the canvas that processingjs will use
+            var processingInstance = new Processing(canvas, sketchProc); //pass the function sketchProc (defined in myCode.js) to Processing's constructor.
+    </script>
+{% endblock %}
+
+{% block navigation %}
+	{% if prev %}
+	<a href="{% url 'processing:post' prev.id %}">Prev</a>  
+	{% else %}
+	<span class="text-muted">Prev</span>
+	{% endif %}
+	&nbsp;&nbsp;&nbsp;&nbsp;
+	<a href="{% url 'processing:index' %}">Home</a>
+	&nbsp;&nbsp;&nbsp;&nbsp;
+	{% if next %}
+	<a href="{% url 'processing:post' next.id %}">Next</a>  
+	{% else %}
+	<span class="text-muted">Next</span>
+	{% endif %}
+
+{% endblock %}
