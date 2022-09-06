@@ -6,7 +6,7 @@ from django.shortcuts import render, get_object_or_404
 from django.db.models import Q
 
 import datetime
-import dateutil
+from dateutil import parser
 import re
 
 from processing.models import Post
@@ -62,7 +62,7 @@ def submit(request):
     if request.method == 'POST':
         if request.POST['title'] and request.POST['content']:
             if request.POST.get('time', ''):
-              d = dateutil.parser.parse(request.POST['time'])
+              d = parser.parse(request.POST['time'])
             else:
               d = datetime.datetime.now()
             if request.POST['author']:
