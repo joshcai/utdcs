@@ -1,26 +1,35 @@
 {% extends "processing/base.html" %}
 {% load staticfiles %}
-
+{% load tagcheck %}
 {% block content %}
-	<br />
 	<div class="text-center">
-		<span class="post-title"><strong>{{ post.title }} </strong></span>
-		<span class="post-title2">by {{ post.author }} on {{ post.date_str }} </span>
+		<span class="post-title">
+			<strong>
+			{% if post.linked %}
+			<a href="{{ post.link }}" target="_blank">{% endif %}{{ post.title }}{% if post.linked %}</a>
+			{% endif %}
+			</strong>
+		</span>
+		<span class="post-title2">by <a href="{% url 'processing:index' %}?author={{post.author}}">{{ post.author }}</a> on {{ post.date_str }} </span>
 	</div>
 	<br />
-<script src="{% static 'js/processing.js' %}"></script>
+<script src="{% static 'js/processing-1.4.1.min.js' %}"></script>
 <script>
 {{ post.content_rendered|safe }}
 </script>
 
 <div class="row">
+	{% if post.linked %}
+	<div class="col-lg-3">
+	{% else %}
 	<div class="col-lg-6 min400">
 		<canvas id="mycanvas"></canvas>
+	{% endif %}
 	</div>
 	<div class="col-lg-6">
 		<form action="#" method="post">
 			<fieldset>
-			<textarea name="content" placeholder="Content" class="fit-box">{{ post.content }}</textarea>
+			<textarea name="content" readonly placeholder="Content" class="fit-box">{% if rendered %}{{post.content_rendered}}{%else%}{{ post.content }}{%endif%}</textarea>
 			</fieldset>
 		</form>
 	</div>
@@ -32,13 +41,24 @@
 {% endblock %}
 
 {% block navigation %}
+	{% if request.session.logged_in %}
+		<a href="{% url 'processing:delete' post.id %}">Delete</a>
+		&nbsp;&nbsp;
+		<a href="{% url 'processing:update' post.id %}">Update</a>
+		<br />
+	{% elif request.session|tagcheck:post.id %}
+		<a href="{% url 'processing:delete' post.id %}">Delete</a>
+		&nbsp;&nbsp;
+		<a href="{% url 'processing:update' post.id %}">Update</a>
+		<br />
+	{% endif %}
 	{% if prev %}
 	<a href="{% url 'processing:post' prev.id %}">Prev</a>  
 	{% else %}
 	<span class="text-muted">Prev</span>
 	{% endif %}
 	&nbsp;&nbsp;&nbsp;&nbsp;
-	<a href="{% url 'processing:index' %}">Home</a>
+	<a href="javascript:history.go(-1)">Back</a>
 	&nbsp;&nbsp;&nbsp;&nbsp;
 	{% if next %}
 	<a href="{% url 'processing:post' next.id %}">Next</a>  

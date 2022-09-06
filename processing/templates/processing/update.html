@@ -1,0 +1,34 @@
+{% extends "processing/base.html" %}
+
+{% load tagcheck %}
+
+{% block content %}
+<form action="{{ url }}" method="post">
+	<fieldset>
+		{% csrf_token %}
+		<legend>Update Program</legend>
+		<!--<label>Subject</label>-->
+		<input type="text" class="form-control" name="title" value="{{ title }}" placeholder="Subject" />
+		<br />
+		<input type="text" class="form-control" name="author" value="{{ author }}" placeholder="Author (optional)"/>
+		<br />
+		<!--<label>Content</label>-->
+		<textarea rows="15" name="content" placeholder="Content" class="form-control">{{ content }}</textarea>
+		<div class="checkbox">
+		  <label>
+		    <input type="checkbox" name="linked" id="one" {% if linked %} checked="checked" {% endif %}>
+		    Check this to run program on Khan Academy (and submit a link below)
+		  </label>
+		</div>
+		<input type="text" class="form-control" name="link" value="{{ link }}" placeholder="Link to Khan Academy program" />
+		<br />
+		<div class="text-center">
+			<button type="submit" class="btn">Submit</button>
+		</div>
+</fieldset>
+</form>
+{{ error_message|safe }}
+{% endblock %}
+{% block navigation %}
+<a href="{% url 'processing:index' %}">Home </a>
+{% endblock %}

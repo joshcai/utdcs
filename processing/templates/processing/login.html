@@ -1,12 +1,12 @@
-{% extends "blog/base.html" %}
+{% extends "processing/base.html" %}
 
 {% block content %}
-<form action="{% url 'blog:login' %}" method="post">
+<form action="{% url 'processing:login' %}" method="post">
 	<fieldset>
 		{% csrf_token %}
 		<legend>Login</legend>
 		<!--<label>Subject</label>-->
-		<input type="password" name="password" placeholder="Password" class="span6" />
+		<input type="password" name="password" placeholder="Password" class="form-control" />
 		<br />
 		<button type="submit" class="btn">Login</button>
 	</fieldset>

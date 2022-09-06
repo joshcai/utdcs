@@ -124,3 +124,12 @@ textarea.fit-box{
 .text-links{
 	font-size: 18px;
 }
+
+.no-underline{
+	text-decoration:none;
+	color: black;
+}
+.no-underline:hover{
+	text-decoration:none;
+	color: #666666;
+}

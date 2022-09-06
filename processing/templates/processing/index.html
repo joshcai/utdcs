@@ -2,26 +2,34 @@
 
 {% load tagcheck %}
 
-{% block content %}
-<div class="row">
-	<div class="col-lg-8"><h2 class="pull-left"><strong>UTD CS Javascript Camp</strong></h2></div>
-	<div class="col-lg-4">
-	<div class="pull-right space-top"><a href="{% url 'processing:submit' %}"><button type="button" class="btn btn-primary">Submit New</button></a></div>
-	</div>
-</div>
-<br />
+
 <!-- add some white space here?  -->
 
+{% block content %}
+<br />
 {% if post_entries %}
     {% for post in post_entries %}
     	<div class="well">
     		<!-- fix so that subject has priority? -->
 	    	<span class="pull-right"><em>{{ post.date_str }}</em></span>
-    		<span class="post-title"><a href="{% url 'processing:post' post.id %}">{{ post.title }}</a> by {{ post.author}}</span>
-<!-- 	        {% if request.session.logged_in %}
-	        <a href="{% url 'blog:update' post.id %}">Update</a>
-	        <a href="{% url 'blog:delete' post.id %}">Delete</a>
-	        {% endif %} -->
+    		<span class="post-title">{% if post.linked %}<a href="{{post.link}}" target="_blank">(Khan)</a>{%endif%}
+			<a href="{% url 'processing:post' post.id %}">{{ post.title }}</a> 
+			by <a href="{% url 'processing:index' %}?author={{post.author}}">{{ post.author}}</a></span>
+ 	        {% if request.session.logged_in %}
+ 	        <br />
+ 	        {% if post.deleted %}
+	        <a href="{% url 'processing:undelete' post.id %}">Undelete</a>
+	        {% else %}
+	        <a href="{% url 'processing:delete' post.id %}">Delete</a>
+	        {% endif %}
+	        &nbsp;&nbsp;
+	        <a href="{% url 'processing:update' post.id %}">Update</a>
+	        {% elif request.session|tagcheck:post.id %}
+	      	<br />
+	        <a href="{% url 'processing:delete' post.id %}">Delete</a>
+	        &nbsp;&nbsp;
+	        <a href="{% url 'processing:update' post.id %}">Update</a>   
+	        {% endif %}
 	    </div>
     {% endfor %}
 {% else %}
@@ -32,14 +40,21 @@
 
 {% block navigation %}
 	{% if prev %}
-	<a href="{% url 'processing:index_num' page_num|add:"-1" %}">Prev</a> 
+	<a href="{% url 'processing:index_num' page_num|add:"-1" %}{% if author %}?author={{ author }}{% endif %}">Prev</a> 
 	{% else %}
 	<span class="text-muted">Prev</span>
 	{% endif %}
 	&nbsp;&nbsp;&nbsp;&nbsp;
 	{% if next %}
-	<a href="{% url 'processing:index_num' page_num|add:"1" %}">Next</a> 
+	<a href="{% url 'processing:index_num' page_num|add:"1" %}{% if author %}?author={{ author }}{% endif %}">Next</a> 
 	{% else %}
 	<span class="text-muted">Next</span>
 	{% endif %}
+	<br />
+	<form action="{% url 'processing:index' %}" method="get">
+		<br />
+		<input type="text" name="author" placeholder="Filter (by author)" />
+		<button type="submit" class="btn">Search</button>
+	</form>
+	<br />
 {% endblock %}

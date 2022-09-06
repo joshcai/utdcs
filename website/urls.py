@@ -1,13 +1,13 @@
-from django.conf.urls import patterns, include, url
+from django.urls import include, re_path
 
 # Uncomment the next two lines to enable the admin:
 # from django.contrib import admin
 # admin.autodiscover()
 
-urlpatterns = patterns('',
+urlpatterns = [
     # Examples:
     #url(r'^blog/', include('blog.urls', namespace="blog")),
-    url(r'^', include('processing.urls', namespace="processing")),
+    re_path(r'^', include(('processing.urls', 'processing'), namespace='processing')),
     # url(r'^$', 'website.views.home', name='home'),
     # url(r'^website/', include('website.foo.urls')),
 
@@ -16,4 +16,4 @@ urlpatterns = patterns('',
 
     # Uncomment the next line to enable the admin:
     # url(r'^admin/', include(admin.site.urls)),
-)
+]
