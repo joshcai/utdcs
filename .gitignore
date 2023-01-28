@@ -2,6 +2,7 @@
 *.pot
 *.pyc
 local_settings.py
+venv/
 
 backup/*
 backed_up/*
